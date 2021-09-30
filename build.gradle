@@ -1,0 +1,72 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'org.springframework.experimental.aot' version '0.10.4'
+    id 'org.graalvm.buildtools.native' version '0.9.3'
+    id 'org.hibernate.orm'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10' // 确保添加 Kotlin
+}
+
+group = 'org.oaiqiy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'https://repo.spring.io/release' }
+
+
+    mavenCentral()
+}
+
+dependencies {
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
+    testImplementation 'org.springframework.security:spring-security-test:5.5.1'
+    implementation 'net.mamoe:mirai-core:2.7.0'
+
+
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+bootBuildImage {
+    builder = 'paketobuildpacks/builder:tiny'
+    environment = ['BP_NATIVE_IMAGE': 'true']
+}
+
+nativeBuild {
+    classpath processAotResources.outputs, compileAotJava.outputs
+}
+
+nativeTest {
+    classpath processAotTestResources.outputs, compileAotTestJava.outputs
+}
+
+hibernate {
+    enhance {
+        enableLazyInitialization = true
+        enableDirtyTracking = true
+        enableAssociationManagement = true
+        enableExtendedEnhancement = false
+    }
+}
