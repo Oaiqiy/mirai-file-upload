@@ -1,3 +1,5 @@
+src/main/resources/application.yml
+
 HELP.md
 .gradle
 build/
@@ -36,4 +38,4 @@ out/
 ### VS Code ###
 .vscode/
 
-src/main/resources/application.yml
+
