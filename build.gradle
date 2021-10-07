@@ -33,12 +33,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security:2.5.4'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
     implementation 'org.springframework.boot:spring-boot-configuration-processor:2.5.4'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.4'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     runtimeOnly 'mysql:mysql-connector-java:8.0.25'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
     testImplementation 'org.springframework.security:spring-security-test:5.5.1'
     implementation 'net.mamoe:mirai-core:2.7.0'
+
+
 
 
 

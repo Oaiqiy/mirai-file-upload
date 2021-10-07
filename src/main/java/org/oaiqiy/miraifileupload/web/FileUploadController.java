@@ -34,13 +34,7 @@ public class FileUploadController {
 
 		String root = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,"serveFile","").scheme("https").toUriString();
 
-		//log.info(root);
 
-		//Path rootPath = Paths.get(root);
-//		model.addAttribute("files", storageService.loadAll().map(
-//						path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-//								"serveFile", path.getFileName().toString()).build().toUri().toString())
-//				.collect(Collectors.toList()));
 		model.addAttribute("files", storageService.loadAll().map(
 						path -> root+path.getFileName().toString())
 				.collect(Collectors.toList()));
@@ -90,7 +84,7 @@ public class FileUploadController {
 
 	@ExceptionHandler(StorageFileNotFoundException.class)
 	public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.badRequest().build();
 	}
 
 
