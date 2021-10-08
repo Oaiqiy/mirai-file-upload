@@ -3,6 +3,7 @@ package org.oaiqiy.miraifileupload.bot;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+import org.oaiqiy.miraifileupload.bot.event.FileEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +12,15 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class BotConfig {
 
-    BotProperties botProperties;
+    private BotProperties botProperties;
+    private FileEvent fileEvent;
 
     @Bean
     public Bot bot(){
         Bot bot = BotFactory.INSTANCE.newBot(botProperties.getQqNum(),botProperties.getPassword());
         bot.login();
+        bot.getEventChannel().registerListenerHost(fileEvent);
         return bot;
+
     }
 }
