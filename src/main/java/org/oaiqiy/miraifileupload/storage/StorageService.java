@@ -12,7 +12,7 @@ public interface StorageService {
 
 	void store(MultipartFile file) throws Exception;
 
-	Stream<Path> loadAll();
+	Stream<String> loadAll();
 
 	Path load(String filename);
 
