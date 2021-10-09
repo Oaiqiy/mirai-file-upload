@@ -34,11 +34,11 @@ public class FileUploadController {
 
 		String root = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,"serveFile","").scheme("https").toUriString();
 
-
-		model.addAttribute("files", storageService.loadAll().map(
-						path -> root+path.getFileName().toString())
-				.collect(Collectors.toList()));
-		model.addAttribute("root", root);
+//
+//		model.addAttribute("files", storageService.loadAll().map(
+//						path -> root+path.getFileName().toString())
+//				.collect(Collectors.toList()));
+//		model.addAttribute("root", root);
 
 		return "uploadForm";
 	}

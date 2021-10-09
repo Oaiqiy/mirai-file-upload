@@ -1,5 +1,6 @@
 package org.oaiqiy.miraifileupload.bot;
 
+import lombok.AllArgsConstructor;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Friend;
 import org.oaiqiy.miraifileupload.storage.StorageService;
@@ -9,9 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class BotTask {
-    @Autowired
-    Bot bot;
+
+    private final Bot bot;
 
 
     @Bean
