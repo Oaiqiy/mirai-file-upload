@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class URLandName {
+public class RemoteFileData {
     private String url;
     private String name;
 }

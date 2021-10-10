@@ -15,11 +15,14 @@ public class MiraiFileUploadApplication {
     public static void main(String[] args) {
         SpringApplication.run(MiraiFileUploadApplication.class, args);
     }
+
     @Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
+    public CommandLineRunner init(StorageService storageService){
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                storageService.loadAll();
+            }
         };
     }
 }

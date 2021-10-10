@@ -1,7 +1,9 @@
 package org.oaiqiy.miraifileupload.web;
 
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.oaiqiy.miraifileupload.storage.StorageData;
 import org.oaiqiy.miraifileupload.storage.StorageFileNotFoundException;
 import org.oaiqiy.miraifileupload.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
+@AllArgsConstructor
 public class FileUploadController {
 
 	private final StorageService storageService;
-
-	@Autowired
-	public FileUploadController(StorageService storageService) {
-		this.storageService = storageService;
-	}
+	private final StorageData storageData;
 
 	@GetMapping("/")
 	public String listUploadedFiles(Model model)  {
 
-		model.addAttribute("files",storageService.loadAll());
-
-
+		model.addAttribute("files",storageData.getData());
 		return "uploadForm";
 	}
 
