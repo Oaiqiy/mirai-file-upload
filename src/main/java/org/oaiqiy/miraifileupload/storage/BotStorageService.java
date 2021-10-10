@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -23,27 +25,15 @@ import java.util.stream.Stream;
 @Slf4j
 public class BotStorageService implements StorageService{
     private final Bot bot;
-    private final StorageProperties storageProperties;
-    private Path rootLocation;
 
 
 
-    @Override
-    public void init() {
-        rootLocation=Paths.get(storageProperties.getLocation());
-        try {
-            Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }
-    }
 
     @Override
     public void store(MultipartFile file) throws Exception {
 
-        log.info("execute store");
-        rootLocation=Paths.get(storageProperties.getLocation());
+
+
         Group group = bot.getGroup(1018811259);
 
         group.sendMessage("begin");
@@ -58,26 +48,13 @@ public class BotStorageService implements StorageService{
 
     }
 
-    @Override
-    public Stream<String> loadAll() {
-        Group group = bot.getGroup(1018811259);
-        RemoteFile root = group.getFilesRoot();
-        return root.listFilesCollection().stream().map(remoteFile ->
-            Objects.requireNonNull(remoteFile.getDownloadInfo()).getUrl());
-    }
+
 
     @Override
-    public Stream<String> loadAllNames() {
+    public List<URLandName> loadAll() {
         Group group = bot.getGroup(1018811259);
         RemoteFile root = group.getFilesRoot();
-        return root.listFilesCollection().stream().map(remoteFile -> remoteFile.getName());
-    }
-
-    @Override
-    public Stream<URLandName> loadAllURL() {
-        Group group = bot.getGroup(1018811259);
-        RemoteFile root = group.getFilesRoot();
-        return root.listFilesCollection().stream().map(remoteFile -> new URLandName(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
+        return root.listFilesCollection().stream().map(remoteFile -> new URLandName(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName())).collect(Collectors.toList());
 
     }
 
@@ -91,11 +68,7 @@ public class BotStorageService implements StorageService{
         return null;
     }
 
-    @Override
-    public void deleteAll() {
-        rootLocation=Paths.get(storageProperties.getLocation());
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
-    }
+
 
     @Override
     public void delete(String filename) {

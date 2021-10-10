@@ -12,11 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.IOException;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -30,19 +26,9 @@ public class FileUploadController {
 	}
 
 	@GetMapping("/")
-	public String listUploadedFiles(Model model) throws IOException {
+	public String listUploadedFiles(Model model)  {
 
-		String root = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,"serveFile","").scheme("https").toUriString();
-
-//
-//		model.addAttribute("files", storageService.loadAll().map(
-//						path -> root+path.getFileName().toString())
-//				.collect(Collectors.toList()));
-//		model.addAttribute("root", root);
-
-//		model.addAttribute("files", storageService.loadAll().collect(Collectors.toList()));
-//		model.addAttribute("names",storageService.loadAllNames().collect(Collectors.toList()));
-		model.addAttribute("files",storageService.loadAllURL().collect(Collectors.toList()));
+		model.addAttribute("files",storageService.loadAll());
 
 
 		return "uploadForm";
@@ -64,7 +50,7 @@ public class FileUploadController {
 			storageService.store(file);
 			redirectAttributes.addFlashAttribute("message",
 					"You successfully uploaded " + file.getOriginalFilename() + "!");
-			log.info("uploaded " + file.getOriginalFilename() );
+			log.info("upload " + file.getOriginalFilename() );
 		}catch (Exception e){
 			e.printStackTrace();
 		}
