@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.oaiqiy.miraifileupload.storage.StorageFileNotFoundException;
 import org.oaiqiy.miraifileupload.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +32,6 @@ public class FileUploadController {
 		return "uploadForm";
 	}
 
-	@GetMapping("/files/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-		Resource file = storageService.loadAsResource(filename);
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
-	}
 
 	@PostMapping("/")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,

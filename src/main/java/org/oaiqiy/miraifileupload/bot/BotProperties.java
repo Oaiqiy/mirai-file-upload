@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class BotProperties {
     private Long qqNum;
     private String password;
-    private Long yourQq;
+    private Long groupNum;
 
 }
