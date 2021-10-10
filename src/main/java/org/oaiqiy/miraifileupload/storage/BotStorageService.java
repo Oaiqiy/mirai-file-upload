@@ -51,9 +51,10 @@ public class BotStorageService implements StorageService{
         if (file.isEmpty()) {
             throw new StorageException("Failed to store empty file.");
         }
-
-        ExternalResource.uploadAsFile(ExternalResource.create(file.getInputStream()),group,file.getOriginalFilename());
-
+        group.sendMessage("2");
+        //ExternalResource.uploadAsFile(ExternalResource.create(file.getInputStream()),group,file.getOriginalFilename());
+        ExternalResource.sendAsFile(ExternalResource.create(file.getInputStream()),group,file.getOriginalFilename());
+        group.sendMessage("s");
 
     }
 
@@ -63,6 +64,21 @@ public class BotStorageService implements StorageService{
         RemoteFile root = group.getFilesRoot();
         return root.listFilesCollection().stream().map(remoteFile ->
             Objects.requireNonNull(remoteFile.getDownloadInfo()).getUrl());
+    }
+
+    @Override
+    public Stream<String> loadAllNames() {
+        Group group = bot.getGroup(1018811259);
+        RemoteFile root = group.getFilesRoot();
+        return root.listFilesCollection().stream().map(remoteFile -> remoteFile.getName());
+    }
+
+    @Override
+    public Stream<URLandName> loadAllURL() {
+        Group group = bot.getGroup(1018811259);
+        RemoteFile root = group.getFilesRoot();
+        return root.listFilesCollection().stream().map(remoteFile -> new URLandName(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
+
     }
 
     @Override

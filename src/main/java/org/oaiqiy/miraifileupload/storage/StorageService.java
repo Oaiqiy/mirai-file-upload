@@ -14,6 +14,10 @@ public interface StorageService {
 
 	Stream<String> loadAll();
 
+	Stream<String> loadAllNames();
+
+	Stream<URLandName> loadAllURL();
+
 	Path load(String filename);
 
 	Resource loadAsResource(String filename);

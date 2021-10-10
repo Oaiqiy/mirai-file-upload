@@ -37,7 +37,7 @@ public class FileEventHandler extends SimpleListenerHost {
 
     @EventHandler
     public void onMessage(@NotNull GroupMessageEvent event) throws Exception { // 可以抛出任何异常, 将在 handleException 处理
-        event.getSubject().sendMessage("receive");
+        //event.getSubject().sendMessage("receive");
 
         if(event.getMessage() instanceof FileMessage){
             event.getSubject().sendMessage("55555555555555555");

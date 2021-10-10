@@ -40,7 +40,9 @@ public class FileUploadController {
 //				.collect(Collectors.toList()));
 //		model.addAttribute("root", root);
 
-		model.addAttribute("files", storageService.loadAll().collect(Collectors.toList()));
+//		model.addAttribute("files", storageService.loadAll().collect(Collectors.toList()));
+//		model.addAttribute("names",storageService.loadAllNames().collect(Collectors.toList()));
+		model.addAttribute("files",storageService.loadAllURL().collect(Collectors.toList()));
 
 
 		return "uploadForm";
