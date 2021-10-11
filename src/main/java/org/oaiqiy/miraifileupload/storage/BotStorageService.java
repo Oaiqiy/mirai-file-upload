@@ -77,9 +77,9 @@ public class BotStorageService implements StorageService{
     @Override
     public void delete(String filename) {
         RemoteFile root = group.getFilesRoot();
+
         for(RemoteFile x:root.listFilesCollection()){
             if(x.getName().equals(filename)){
-
 
                 x.delete();
 
