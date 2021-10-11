@@ -1,5 +1,7 @@
 package org.oaiqiy.miraifileupload;
 
+import net.mamoe.mirai.Bot;
+import org.oaiqiy.miraifileupload.storage.BotEventHandler;
 import org.oaiqiy.miraifileupload.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,5 +26,16 @@ public class MiraiFileUploadApplication {
                 storageService.loadAll();
             }
         };
+    }
+
+    @Bean
+    public CommandLineRunner initBotEvent(Bot bot, BotEventHandler botEventHandler){
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                bot.getEventChannel().registerListenerHost(botEventHandler);
+            }
+        };
+
     }
 }

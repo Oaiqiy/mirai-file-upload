@@ -12,14 +12,13 @@ import org.springframework.context.annotation.Configuration;
 public class BotConfig {
 
     private BotProperties botProperties;
-    private BotEventHandler botEventHandler;
+
 
 
     @Bean
     public Bot bot(){
         Bot bot = BotFactory.INSTANCE.newBot(botProperties.getQqNum(),botProperties.getPassword());
         bot.login();
-        bot.getEventChannel().registerListenerHost(botEventHandler);
         return bot;
     }
 }

@@ -9,10 +9,10 @@ public interface StorageService {
 	void store(MultipartFile file) throws Exception;
 
 	void loadAll();
+	void reloadAll();
 
 
 
-
-	void delete(String filename);
+	void delete(String fileId);
 
 }

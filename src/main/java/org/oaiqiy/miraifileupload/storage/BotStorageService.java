@@ -69,22 +69,28 @@ public class BotStorageService implements StorageService{
     public void loadAll() {
         RemoteFile root = group.getFilesRoot();
         List<RemoteFile> files = root.listFilesCollection();
-        storageData.setData( files.stream().map(remoteFile -> new RemoteFileData(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName())).collect(Collectors.toList()));
+        storageData.setData( files.stream().map(remoteFile -> new RemoteFileData(remoteFile.getId(),remoteFile.getDownloadInfo().getUrl(),remoteFile.getName())).collect(Collectors.toList()));
+
+    }
+
+    @Override
+    public void reloadAll() {
+        RemoteFile root = group.getFilesRoot();
+        List<String> fileIds = root.listFilesCollection().stream().map(remoteFile -> remoteFile.getId()).collect(Collectors.toList());
+        storageData.getData().removeIf(remoteFileData -> !fileIds.removeIf(s -> s.equals(remoteFileData.getId())));
+
 
     }
 
 
     @Override
-    public void delete(String filename) {
-        RemoteFile root = group.getFilesRoot();
-
-        for(RemoteFile x:root.listFilesCollection()){
-            if(x.getName().equals(filename)){
-
-                x.delete();
-
-
-            }
+    public void delete(String fileId) {
+        RemoteFile remoteFile = group.getFilesRoot().resolveById(fileId);
+        if(remoteFile!=null){
+            remoteFile.delete();
         }
+
+        storageData.getData().removeIf(x -> x.getId().equals(fileId));
+
     }
 }

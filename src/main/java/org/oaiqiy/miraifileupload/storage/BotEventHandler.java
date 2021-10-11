@@ -3,6 +3,7 @@ package org.oaiqiy.miraifileupload.storage;
 import kotlin.coroutines.CoroutineContext;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.SimpleListenerHost;
@@ -20,6 +21,10 @@ import org.springframework.stereotype.Component;
 public class BotEventHandler extends SimpleListenerHost {
     private final StorageData storageData;
     private final BotProperties botProperties;
+    private final StorageService storageService;
+
+
+
 
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception){
@@ -37,7 +42,7 @@ public class BotEventHandler extends SimpleListenerHost {
 
         event.getSubject().sendMessage("received");
         RemoteFile remoteFile = fileMessage.toRemoteFile(group);
-        storageData.getData().add(0,new RemoteFileData(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
+        storageData.getData().add(0,new RemoteFileData(remoteFile.getId(),remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
 
 
     }
@@ -54,7 +59,18 @@ public class BotEventHandler extends SimpleListenerHost {
             return;
         event.getTarget().sendMessage("send");
         RemoteFile remoteFile = fileMessage.toRemoteFile(group);
-        storageData.getData().add(0,new RemoteFileData(remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
+        storageData.getData().add(0,new RemoteFileData(remoteFile.getId(),remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
+
+    }
+
+    @EventHandler
+    public void onMessage(@NotNull MessageRecallEvent.GroupRecall event) throws Exception{
+        Group group = event.getGroup();
+        if(group.getId()!=botProperties.getGroupNum())
+            return;
+        if(event.getOperator()==null)
+            return;
+        storageService.reloadAll();
 
     }
 
