@@ -19,15 +19,15 @@
 
 	<div>
 		<ul>
-			<form th:each="file : ${files}" >
+			<form method="post" th:each="file : ${files}" th:action="${'/files'+file.id}">
 				<li >
 <!--					<a href="javascript:void(0)" th:text="test" th:onclick="'downloadFile(\''+${file}+'\')'"></a>-->
 <!--					<button href="javascript:void(0)" th:text="test" th:onclick="'downloadFile(\''+${file}+'\')'"></button>-->
 <!--					<a ="downloadFile([[${file}]],'afa')" th:text="${file}"></a>-->
-<!--				th:href="${file}" th:text="${file}" download="test"	<button type="submit" style="color: crimson" th:value="${file}">X</button>-->
+
 <!--					<button th:onclick="" th:text="${file}"></button>-->
-						<a href="javascript:void(0)" th:text="${file.name}" th:data-url="${file.url}" th:data-name="${file.name}" onclick="downloadFile(this.getAttribute('data-url'),this.getAttribute('data-name'))"></a>
-<!--					<a href="javascript:void(0)" th:text="fasdf"  onclick="downloadFile('http://111.33.189.40/ftn_handler/87C44B1953329AE493AB19454377488D6656632998D8A1A49A754246109D7A06117B8FB2F4DFE2C954F500B17AA5EE43BD52862048693C7C9ECE26833BD65A8D/?fname=2F61616236373162342D346235342D343661392D613635632D386639313632336130643930')"></a>-->
+					<a href="javascript:void(0)" th:text="${file.name}" th:data-url="${file.url}" th:data-name="${file.name}" onclick="downloadFile(this.getAttribute('data-url'),this.getAttribute('data-name'))"></a>
+					<button type="submit" style="color: crimson" th:value="${file.id}">X</button>
 
 				</li>
 			</form>

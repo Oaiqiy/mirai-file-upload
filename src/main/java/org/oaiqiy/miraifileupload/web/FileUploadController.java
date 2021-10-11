@@ -46,13 +46,13 @@ public class FileUploadController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/files/{filename:.+}")
-	public String deleteFile(@PathVariable String filename, RedirectAttributes redirectAttributes){
-		storageService.delete(filename);
+	@PostMapping("/files/{id}")
+	public String deleteFile(@PathVariable String id, RedirectAttributes redirectAttributes){
+		storageService.delete('/'+id);
 		redirectAttributes.addFlashAttribute("message",
-				"You successfully delete " + filename + "!");
+				"You successfully delete " + id + "!");
 
-		log.info("delete " + filename);
+		log.info("delete " + id);
 		return "redirect:/";
 	}
 
