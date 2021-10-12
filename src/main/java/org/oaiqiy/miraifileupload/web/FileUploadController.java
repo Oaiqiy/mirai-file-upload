@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.oaiqiy.miraifileupload.storage.StorageData;
 import org.oaiqiy.miraifileupload.storage.StorageFileNotFoundException;
 import org.oaiqiy.miraifileupload.storage.StorageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +40,6 @@ public class FileUploadController {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
 
 		return "redirect:/";
 	}

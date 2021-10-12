@@ -4,7 +4,6 @@ plugins {
     id 'java'
     id 'org.springframework.experimental.aot' version '0.10.4'
     id 'org.graalvm.buildtools.native' version '0.9.3'
-    id 'org.hibernate.orm'
     id 'org.jetbrains.kotlin.jvm' version '1.5.10' // 确保添加 Kotlin
 }
 
@@ -25,6 +24,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
 
 
@@ -36,10 +36,15 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.5'
     testImplementation 'org.springframework.security:spring-security-test:5.5.1'
-    implementation 'net.mamoe:mirai-core:2.7.0'
 
-
-
+    implementation("net.mamoe:mirai-core-jvm:2.7.0") {
+        exclude group: 'net.mamoe', module: 'mirai-core-api'
+        exclude group: 'net.mamoe', module: 'mirai-core-utils'
+    }
+    implementation("net.mamoe:mirai-core-api-jvm:2.7.0") {
+        exclude group: 'net.mamoe', module: 'mirai-core-utils'
+    }
+    implementation("net.mamoe:mirai-core-utils-jvm:2.7.0")
 
 
 
@@ -62,11 +67,8 @@ nativeTest {
     classpath processAotTestResources.outputs, compileAotTestJava.outputs
 }
 
-hibernate {
-    enhance {
-        enableLazyInitialization = true
-        enableDirtyTracking = true
-        enableAssociationManagement = true
-        enableExtendedEnhancement = false
-    }
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Test.class" // whatever Ant pattern matches your test class files
 }
+

@@ -48,17 +48,7 @@ public class BotStorageService implements StorageService{
         }
 
         //group.getFilesRoot().resolve(file.getName()).uploadAndSend(ExternalResource.create(file.getInputStream()));
-        ExternalResource.sendAsFile(ExternalResource.create(file.getInputStream()),group,file.getOriginalFilename(),new RemoteFile.ProgressionCallback(){
-            @Override
-            public void onSuccess(@NotNull RemoteFile file, @NotNull ExternalResource resource) {
-                log.info("dfghjklkjhgdfasfsadf");
-            }
-
-            @Override
-            public void onFailure(@NotNull RemoteFile file, @NotNull ExternalResource resource, @NotNull Throwable exception) {
-                log.info("fffffffff");
-            }
-        });
+        ExternalResource.sendAsFile(ExternalResource.create(file.getInputStream()),group,file.getOriginalFilename());
 
 
     }
@@ -90,11 +80,6 @@ public class BotStorageService implements StorageService{
 
         if(remoteFile!=null){
             remoteFile.delete();
-        }
-
-        log.info(fileId);
-        for(RemoteFileData r : storageData.getData()){
-            log.warn(r.getId());
         }
 
         storageData.getData().removeIf(x -> x.getId().equals(fileId));
