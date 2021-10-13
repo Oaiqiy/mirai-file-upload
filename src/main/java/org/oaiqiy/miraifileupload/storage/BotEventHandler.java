@@ -57,7 +57,6 @@ public class BotEventHandler extends SimpleListenerHost {
         FileMessage fileMessage = event.getMessage().get(FileMessage.Key);
         if(fileMessage == null)
             return;
-        event.getTarget().sendMessage("send");
         RemoteFile remoteFile = fileMessage.toRemoteFile(group);
         storageData.getData().add(0,new RemoteFileData(remoteFile.getId(),remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
 
