@@ -1,0 +1,19 @@
+bot:
+  qq-num:
+  password:
+  group-num:
+
+spring:
+  security:
+    user:
+      name: root
+      password: root
+      roles: ADMIN
+
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+
+server:
+  port: 59701
