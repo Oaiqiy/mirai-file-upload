@@ -2,8 +2,6 @@ package org.oaiqiy.miraifileupload.storage;
 
 import kotlin.coroutines.CoroutineContext;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.SimpleListenerHost;
@@ -19,19 +17,18 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class BotEventHandler extends SimpleListenerHost {
+
     private final StorageData storageData;
     private final BotProperties botProperties;
     private final StorageService storageService;
 
 
-
-
-    @Override
-    public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception){
-
-    }
+    /**
+     * 处理接收到的群文件消息
+     * @param event
+     */
     @EventHandler
-    public void onMessage(@NotNull GroupMessageEvent event) throws Exception { // 可以抛出任何异常, 将在 handleException 处理
+    public void onMessage(@NotNull GroupMessageEvent event) { // 可以抛出任何异常, 将在 handleException 处理
         Group group = event.getGroup();
         if(group.getId()!=botProperties.getGroupNum())
             return;
@@ -44,11 +41,14 @@ public class BotEventHandler extends SimpleListenerHost {
         RemoteFile remoteFile = fileMessage.toRemoteFile(group);
         storageData.getData().add(0,new RemoteFileData(remoteFile.getId(),remoteFile.getDownloadInfo().getUrl(),remoteFile.getName()));
 
-
     }
 
+    /**
+     * 处理发送的群文件消息
+     * @param event
+     */
     @EventHandler
-    public void onMessage(@NotNull GroupMessagePostSendEvent event) throws Exception {
+    public void onMessage(@NotNull GroupMessagePostSendEvent event) {
 
         Group group = event.getTarget();
         if(group.getId()!=botProperties.getGroupNum())
@@ -63,15 +63,19 @@ public class BotEventHandler extends SimpleListenerHost {
 
     }
 
+    /**
+     * 处理群聊中其他用户删除文件的消息
+     * 删除群文件会发出一个撤回消息事件
+     * @param event
+     */
     @EventHandler
-    public void onMessage(@NotNull MessageRecallEvent.GroupRecall event) throws Exception{
+    public void onMessage(@NotNull MessageRecallEvent.GroupRecall event){
         Group group = event.getGroup();
         if(group.getId()!=botProperties.getGroupNum())
             return;
         if(event.getOperator()==null)
             return;
         storageService.reloadAll();
-
     }
 
 

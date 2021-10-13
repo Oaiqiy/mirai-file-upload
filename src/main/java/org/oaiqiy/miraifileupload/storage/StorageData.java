@@ -8,6 +8,9 @@ import java.util.List;
 @Data
 @Component
 public class StorageData {
+    /**
+     * 存文件信息的链表
+     */
     private List<RemoteFileData> data;
 
 }

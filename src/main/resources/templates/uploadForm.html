@@ -9,6 +9,11 @@
 	</div>
 
 	<div>
+		<button  type="button"><a href="/refresh">刷新</a> </button>
+	</div>
+
+
+	<div>
 		<form method="POST" enctype="multipart/form-data" action="/">
 			<table>
 				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
@@ -21,11 +26,7 @@
 		<ul>
 			<form method="post" th:each="file : ${files}" th:action="${'/files'+file.id}">
 				<li >
-<!--					<a href="javascript:void(0)" th:text="test" th:onclick="'downloadFile(\''+${file}+'\')'"></a>-->
-<!--					<button href="javascript:void(0)" th:text="test" th:onclick="'downloadFile(\''+${file}+'\')'"></button>-->
-<!--					<a ="downloadFile([[${file}]],'afa')" th:text="${file}"></a>-->
 
-<!--					<button th:onclick="" th:text="${file}"></button>-->
 					<a href="javascript:void(0)" th:text="${file.name}" th:data-url="${file.url}" th:data-name="${file.name}" onclick="downloadFile(this.getAttribute('data-url'),this.getAttribute('data-name'))"></a>
 					<button type="submit" style="color: crimson" th:value="${file.id}">X</button>
 
@@ -35,6 +36,7 @@
 
 		<script th:inline="javascript">
 
+			//此函数为了修改下载的文件名，但是导致不能正确显示下载进度
 			function downloadFile(url,name) {
 				
 				let x = new XMLHttpRequest();
