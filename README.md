@@ -6,6 +6,8 @@
 
 开发目的为了解决手机电脑之间，电脑与电脑之间文件同步麻烦的问题，使用这个程序只需要把想要同步的文件发送或转发到qq群中，即可在网页中下载，同时在网页中也可以上传文件到qq群中。
 
+为安全考虑使用spring security对网站进行保护，可在[这里](/src/main/java/org/oaiqiy/miraifileupload/web/WebSecurity.java)关闭spring security。
+
 ### 使用方法
 1. 创建一个qq群把想要使用的bot拉进去。
 2. 在[配置文件](/src/main/resources/application.yml)中填入bot的qq号，密码和qq群号。
