@@ -9,13 +9,23 @@
 为安全考虑使用spring security对网站进行保护，可在[这里](/src/main/java/org/oaiqiy/miraifileupload/web/WebSecurity.java)关闭spring security。
 
 ### 使用方法
-1. 创建一个qq群把想要使用的bot拉进去。
-2. 在[配置文件](/src/main/resources/application.yml)中填入bot的qq号，密码和qq群号。
-3. 用gradle build项目。
-4. 在`/build/libs`里找到jar包。
-5. 在服务器中运行。
-6. 放开[这里](/src/main/resources/application.yml)配置的端口。
-7. 用[这里](/src/main/resources/application.yml)配置用户账号密码登录网页，即可开始使用。
+1. 从releases中下载jar包
+   
+    ```shell
+   java -jar mirai-file-upload-0.0.1-SNAPSHOT.jar --bot.qqNum=[bot qq] --bot.password=[bot password] --bot.group-num=[group num]
+   ```
+   填入bot的qq号，密码和qq群号，程序运行在<http://localhost:59701> 登录用户名和密码为root。
+    
+    
+    
+2. 自行build
+   1. 创建一个qq群把想要使用的bot拉进去。
+   2. 在[配置文件](/src/main/resources/application.yml)中填入bot的qq号，密码和qq群号。
+   3. 用gradle build项目。
+   4. 在`/build/libs`里找到jar包。
+   5. 在服务器中运行。
+   6. 放开[这里](/src/main/resources/application.yml)配置的端口。
+   7. 用[这里](/src/main/resources/application.yml)配置用户账号密码登录网页，即可开始使用。
 
 ### 问题
 1. 不能使用https，因为用到官方的url不是https的，所以更推荐使用edge而不是chrome来打开此页面。
@@ -25,7 +35,7 @@
 1. 增加文字同步功能，将发送到qq群中的内容同步到网站中，也可以通过网站向qq群发送消息。
 
 
-##声明
+## 声明
 
 1. 此项目仅供学习娱乐使用，请勿用于非法用途。
 2. 此项目不会通过任何方式强制收取费用，或对使用者提出物质条件。
