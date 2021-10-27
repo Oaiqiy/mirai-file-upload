@@ -29,6 +29,7 @@ public class FileUploadController {
 	public String listUploadedFiles(Model model)  {
 
 		model.addAttribute("files",storageData.getData());
+		model.addAttribute("texts",storageData.getText());
 		return "uploadForm";
 	}
 

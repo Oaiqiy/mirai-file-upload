@@ -3,6 +3,7 @@ package org.oaiqiy.miraifileupload.storage;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -12,5 +13,6 @@ public class StorageData {
      * 存文件信息的链表
      */
     private List<RemoteFileData> data;
+    private List<String> text  = new LinkedList<>();
 
 }

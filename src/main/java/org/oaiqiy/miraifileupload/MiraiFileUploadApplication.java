@@ -1,7 +1,7 @@
 package org.oaiqiy.miraifileupload;
 
 import net.mamoe.mirai.Bot;
-import org.oaiqiy.miraifileupload.storage.BotEventHandler;
+import org.oaiqiy.miraifileupload.bot.BotEventHandler;
 import org.oaiqiy.miraifileupload.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

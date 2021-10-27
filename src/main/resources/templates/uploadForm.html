@@ -55,6 +55,16 @@
 		</script>
 	</div>
 
+	<div>
+		<ul>
+			<div th:each="text : ${texts}">
+				<li>
+					<a th:text="${text}"></a>
+				</li>
+			</div>
+		</ul>
+	</div>
+
 
 
 
